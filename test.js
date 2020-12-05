@@ -1,3 +1,4 @@
-console.log('hello git cracken');
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('ergreg');
+});
 console.log('ветка тест');
-console.log('rveer');
