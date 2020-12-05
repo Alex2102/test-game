@@ -22,3 +22,7 @@ h1 {
 .btn:hover {
   cursor: pointer;
 }
+
+.active {
+  background: red;
+}
