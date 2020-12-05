@@ -49,6 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
+
+
   // Установка положения персонажа
 
   function setPlayer() {
@@ -56,57 +58,91 @@ document.addEventListener('DOMContentLoaded', () => {
     setSeil();
     let startPosX = Math.floor(Math.random() * Math.floor(10));
     let startPosY = Math.floor(Math.random() * Math.floor(10));
-    ceilsArr[startPosY][startPosX].style.background = 'red';
+    ceilsArr[startPosY][startPosX].classList.add('active');
 
-    moveRight(startPosX, startPosY);
+    move(startPosX, startPosY, direction);
     // console.log(ceilsArr);
   }
 
 
-  // Движение вправо
+  // Движение персонажа
 
-  function moveRight(x, y) {
+  let direction = 'right';
+  let interval;
 
-    let timeInterval = 1000;
+  function move(x, y, direction) {
 
-    setInterval(() => {
+    clearInterval(interval);
 
-      timeInterval = 1000;
-      ceilsArr[y][x].style.background = 'transparent';
-      ceilsArr[y][x+1].style.background = 'red';
-      x++;
+    interval = setInterval(() => {
 
-      if(x == 9) {
-        setTimeout(() => {
-          ceilsArr[y][9].style.background = 'transparent';
-          ceilsArr[y][0].style.background = 'red';
+      if(direction == 'right') {
+        ceilsArr[y][x].classList.remove('active');
+        x++;
+        if(x == 10) {
           x = 0;
-        }, timeInterval);
-
-        timeInterval = 2000;
+        }
+        ceilsArr[y][x].classList.add('active');
+      }
+      else if(direction == 'left') {
+        ceilsArr[y][x].classList.remove('active');
+        x--;
+        if(x == -1) {
+          x = 9;
+        }
+        ceilsArr[y][x].classList.add('active');
+      }
+      else if(direction == 'up') {
+        ceilsArr[y][x].classList.remove('active');
+        y--;
+        if(y == -1) {
+          y = 9;
+        }
+        ceilsArr[y][x].classList.add('active');
+      }
+      else if(direction == 'down') {
+        ceilsArr[y][x].classList.remove('active');
+        y++;
+        if(y == 10) {
+          y = 0;
+        }
+        ceilsArr[y][x].classList.add('active');
       }
 
-    }, timeInterval);
+    }, 100);
 
   }
 
 
 
   document.addEventListener('keydown', (e) => {
+
+    let posX,
+        posY;
+
+    if(e.code == 'ArrowRight' || e.code == 'ArrowDown' || e.code == 'ArrowLeft' || e.code == 'ArrowUp') {
+      posX = document.querySelector('.active').getAttribute('posx');
+      posY = document.querySelector('.active').getAttribute('posy');
+    }
+
     if(e.code == 'ArrowRight') {
-      console.log('Нажата клавиша вправо');
+      direction = 'right';
+      move(posX, posY, direction);
     }
 
     if(e.code == 'ArrowDown') {
-      console.log('Нажата клавиша вниз');
+      direction = 'down';
+      move(posX, posY, direction);
     }
 
     if(e.code == 'ArrowLeft') {
-      console.log('Нажата клавиша влево');
+      direction = 'left';
+      move(posX, posY, direction);
     }
 
     if(e.code == 'ArrowUp') {
-      console.log('Нажата клавиша вверх');
+      direction = 'up';
+      move(posX, posY, direction);
     }
 
   });
