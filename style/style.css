@@ -1,0 +1,28 @@
+body {
+  font-family: "arial, sans-serif";
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+h1 {
+  margin-bottom: 80px;
+}
+
+.game__wrap {
+  width: 600px;
+  height: 600px;
+  border: 1px solid black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.active {
+  background: red;
+}
